@@ -27,3 +27,20 @@ def pregunta_08():
      (9, ['A', 'B', 'C', 'E'])]
 
     """
+    asociaciones = {}
+    with open("files/input/data.csv", 'r') as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split('\t')  # Separar por tabulaciones
+            letra = columnas[0]  # Primera columna (letra)
+            valor_columna_2 = int(columnas[1])  # Segunda columna como entero
+            
+            if valor_columna_2 in asociaciones:
+                asociaciones[valor_columna_2].add(letra)  # Usar set para eliminar duplicados
+            else:
+                asociaciones[valor_columna_2] = {letra}  # Inicializar con un set
+
+    # Convertir los sets a listas, ordenar y luego convertir a tuplas
+    resultado = [(valor, sorted(list(letras))) for valor, letras in sorted(asociaciones.items())]
+    return resultado
+
+print(pregunta_08())

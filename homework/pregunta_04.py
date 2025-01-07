@@ -26,3 +26,20 @@ def pregunta_04():
      ('12', 3)]
 
     """
+    conteo_por_mes = {}
+    with open("files/input/data.csv", 'r') as archivo:
+        for linea in archivo:
+            columnas = linea.strip().split('\t')  # Separar por tabulaciones
+            fecha = columnas[2]  # Tercera columna
+            mes = fecha[5:7]  # Extraer el año y mes en formato 'YYYY-MM'
+            
+            if mes in conteo_por_mes:
+                conteo_por_mes[mes] += 1
+            else:
+                conteo_por_mes[mes] = 1
+
+    # Ordenar los meses alfabéticamente y convertir a una lista de tuplas
+    resultado = sorted(conteo_por_mes.items())
+    return resultado
+
+print(pregunta_04())
